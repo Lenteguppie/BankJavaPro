@@ -58,7 +58,7 @@ public class ATM {
 	public void clearScreen() {
 		as.Clear();
 	}
-	
+	//
 	public void cardScreen() {
 		DisplayText cardLabel = new DisplayText("cardLabel", new Point(100, 25));
 		as.add(NotificationText);
