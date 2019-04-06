@@ -9,7 +9,7 @@ public class Program {
 		atm.cardScreen();
 		while (accountHolder == null) {
 			String cardNumber = "";
-			
+
 			if (cardNumber == "" || cardNumber == null)
 				cardNumber = kaartlezer.getInput();
 			else
@@ -31,11 +31,13 @@ public class Program {
 		return accountHolder;
 
 	}
-	
-	String getPin(ATM atm) {
+
+	private static String getPin(ATM atm) {
+
+		atm.pinScreenNotification("Doorwerken");
+		return "";
 		
-		return null;
-		
+
 	}
 
 	public static void main(String[] args) {
@@ -47,28 +49,9 @@ public class Program {
 		String PinCode = "";
 
 		Client c = getClient(atm, bank, kaartlezer);
+		
+		atm.setupPinscreen();
+		String sukkel = getPin(atm);
 
-		atm.clearScreen();
-		atm.pinScreen("Enter your Pin!");
-		while (PinCode.length() < 4) {
-			switch (PinCode.length()) {
-			case 1:
-				atm.pinScreen("X");
-				break;
-			case 2:
-				atm.pinScreen("XX");
-				break;
-			case 3:
-				atm.pinScreen("XXX");
-				break;
-			case 4:
-				atm.pinScreen("XXXX");
-				break;
-			default:
-				atm.pinScreen("Enter your Pin!");
-
-			}
-
-		}
 	}
 }
