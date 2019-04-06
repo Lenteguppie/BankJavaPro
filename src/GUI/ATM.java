@@ -10,6 +10,7 @@ public class ATM {
 	private Bank bank;
 	private Frame f;
 	ATMScreen as;
+	DisplayText NotificationText;
 	
 	ArrayList<ScreenButton> buttons = new ArrayList<ScreenButton>();
 	
@@ -26,6 +27,7 @@ public class ATM {
 		f.addWindowListener(new MyWindowAdapter(f));
 		f.add(as);
 		f.setVisible(true);
+		NotificationText = new DisplayText("NotificationText", new Point(100, 25));
 	}
 	
 	
@@ -59,21 +61,25 @@ public class ATM {
 	
 	public void cardScreen() {
 		DisplayText cardLabel = new DisplayText("cardLabel", new Point(100, 25));
-		as.add(cardLabel);
-		cardLabel.giveOutput("Enter your Card!");
+		as.add(NotificationText);
+		cardLabel.giveOutput("Enter your Card!");		
 	}
 	
-	public void pinScreen(String l) {
-		
-		DisplayText label = new DisplayText("Enter your pin!", new Point(100, 25));
-		as.add(label);
-		label.giveOutput(l);
-		//as.add(button1);
+	public void setupPinscreen () {
+	    //label = new DisplayText("Enter your pin!", new Point(100, 25));
+		//as.add(label);
+		clearScreen();
+		as.add(NotificationText);
+		NotificationText.giveOutput("Enter your PIN");		
 		
 		Iterator<ScreenButton> it = buttons.iterator();
 		while(it.hasNext()){
 			as.add(it.next());
-		}
+		}		
+	}
+	
+	public void pinScreenNotification(String tekst) {
+		NotificationText.giveOutput(tekst);
 	}
 	
 	
