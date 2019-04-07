@@ -17,8 +17,9 @@ public class Bank {
 		this.accounts.put("NL01BANK0000000000", client3);
 
 	}
+
 //
-	Client get(String rekeningnummer) {
+	public Client get(String rekeningnummer) {
 		if (accounts.containsKey(rekeningnummer)) {
 			return accounts.get(rekeningnummer);
 		} else {
