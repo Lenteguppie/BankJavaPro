@@ -7,7 +7,7 @@ public class Program {
 		ATM atm = new ATM(bank);
 		CardReader kaartlezer = new CardReader("kaartlezer");
 
-		for (int i = 0; i < 99999; i++) {
+		while(true) {
 			atm.doTransaction(kaartlezer);
 		}
 

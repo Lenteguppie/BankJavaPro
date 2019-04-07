@@ -339,12 +339,13 @@ public class ATM {
 		String optie = getOption();
 		if (optie == "Balance") {
 			setupSaldoScreen(bal);
-			while ((MenuButtons.get(1).getInput()) == null)
-			
+			while (true) {
 				if (((MenuButtons.get(1).getInput()) == "Withdraw")) {
+					clearScreen();
 					withdraw(c, bal);
+					break;
 				}
-			
+			}
 
 		} else {
 			if (optie == "Withdraw") {
@@ -352,9 +353,7 @@ public class ATM {
 
 			}
 		}
-
-		delay(1500);
-
+		//delay(1500);
 	}
 
 	private void withdraw(Client c, int bal) {
@@ -378,8 +377,10 @@ public class ATM {
 			clearScreen();
 			as.add(NotificationText);
 			pinScreenNotification("Insufficient money!");
-			delay(2000);
+			delay(1000);
+			
 		}
+		//clearScreen();
 	}
 
 	private void printReceipt() {
