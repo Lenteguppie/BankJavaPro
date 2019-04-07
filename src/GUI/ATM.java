@@ -11,7 +11,7 @@ public class ATM {
 	private Frame f;
 	private String PinCode = "";
 	private String PinCodeSecure = "";
-	private String Amount = "";
+	// private int Amount;
 
 	private ATMScreen as;
 	private DisplayText NotificationText;
@@ -19,6 +19,7 @@ public class ATM {
 	private ArrayList<ScreenButton> KeyPadButtons = new ArrayList<ScreenButton>();
 	private ArrayList<ScreenButton> AmountButtons = new ArrayList<ScreenButton>();
 	private ArrayList<ScreenButton> YesNoButtons = new ArrayList<ScreenButton>();
+	private ArrayList<ScreenButton> MenuButtons = new ArrayList<ScreenButton>();
 
 	public ATM(Bank bank) {
 		this.bank = bank;
@@ -29,6 +30,7 @@ public class ATM {
 		addButtonsToListKeyPad();
 		addButtonsToListAmount();
 		addButtonsToListYesNo();
+		addButtonsToListMenu();
 
 		f.setBounds(200, 200, 400, 350);
 		f.setBackground(Color.BLUE);
@@ -62,7 +64,7 @@ public class ATM {
 		KeyPadButtons.add(button0);
 	}
 
-	private void addButtonsToListAmount() {
+	private void addButtonsToListYesNo() {
 
 		ScreenButton buttonYes = new ScreenButton("Yes", new Point(100, 50));
 		ScreenButton buttonNo = new ScreenButton("No", new Point(50, 150));
@@ -72,7 +74,7 @@ public class ATM {
 
 	}
 
-	private void addButtonsToListYesNo() {
+	private void addButtonsToListAmount() {
 
 		ScreenButton button1 = new ScreenButton("\u20ac 20", new Point(100, 100));
 		ScreenButton button2 = new ScreenButton("\u20ac 50", new Point(150, 100));
@@ -85,8 +87,19 @@ public class ATM {
 
 	}
 
-	private String getAmount() {
-		while (Amount == "") {
+	private void addButtonsToListMenu() {
+
+		ScreenButton button1 = new ScreenButton("Balance", new Point(150, 100));
+		ScreenButton button2 = new ScreenButton("Withdraw", new Point(150, 200));
+
+		MenuButtons.add(button1);
+		MenuButtons.add(button2);
+
+	}
+
+	private int getAmount() {
+		int amount = 0;
+		while (amount <= 0) {
 			Thread.yield();
 			for (int i = 0; i < AmountButtons.size(); i++) {
 				String input = AmountButtons.get(i).getInput();
@@ -94,27 +107,27 @@ public class ATM {
 				if (input != null) {
 					switch (input) {
 					case "\u20ac 20":
-						Amount = "20";
+						amount = 20;
 						break;
 					case "\u20ac 50":
-						Amount = "50";
+						amount = 50;
 						break;
 					case "\u20ac 100":
-						Amount = "100";
+						amount = 100;
 						break;
 					case "\u20ac 200":
-						Amount = "200";
+						amount = 200;
 						break;
 					default:
-						Amount = "";
+
 						break;
 					}
 
 				}
 			}
 		}
-		System.out.println("Amount: " + Amount);
-		return Amount;
+		System.out.println("Amount: " + amount);
+		return amount;
 	}
 
 	private void clearScreen() {
@@ -157,6 +170,25 @@ public class ATM {
 		while (it.hasNext()) {
 			as.add(it.next());
 		}
+	}
+
+	private void setupMenuScreen() {
+		clearScreen();
+		as.add(NotificationText);
+		pinScreenNotification("Menu, Choose option here!");
+
+		Iterator<ScreenButton> it = MenuButtons.iterator();
+		while (it.hasNext()) {
+			as.add(it.next());
+		}
+	}
+
+	private void setupSaldoScreen(int bal) {
+		clearScreen();
+		as.add(NotificationText);
+		pinScreenNotification("Balance: \u20ac" + Integer.toString(bal));
+
+		as.add((MenuButtons.get(1)));
 	}
 
 	private void clearPinCode() {
@@ -234,7 +266,6 @@ public class ATM {
 		return code;
 
 	}
-	
 
 	private void delay(long l) {
 		try {
@@ -244,13 +275,13 @@ public class ATM {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private String getYesNo() {
 		String YesNo = "";
 		while (YesNo == "") {
 			Thread.yield();
-			for (int i = 0; i < AmountButtons.size(); i++) {
-				String input = AmountButtons.get(i).getInput();
+			for (int i = 0; i < YesNoButtons.size(); i++) {
+				String input = YesNoButtons.get(i).getInput();
 
 				if (input != null) {
 					YesNo = input;
@@ -263,7 +294,23 @@ public class ATM {
 		return YesNo;
 	}
 
+	private String getOption() {
+		String option = "";
+		while (option == "") {
+			Thread.yield();
+			for (int i = 0; i < MenuButtons.size(); i++) {
+				String input = MenuButtons.get(i).getInput();
 
+				if (input != null) {
+					option = input;
+				}
+
+			}
+		}
+
+		System.out.println("Keuze: " + option);
+		return option;
+	}
 
 	public void doTransaction(CardReader kaartlezer) {
 
@@ -285,19 +332,58 @@ public class ATM {
 
 		delay(1500);
 
-		setupAmountScreen();
-		String amount = getAmount();
-		delay(1500);
-		setupReceiptScreen();
+		setupMenuScreen();
 
-		if (getYesNo() == "Yes") {
-			printReceipt();
+		int bal = c.getBalance(PinCode);
+
+		String optie = getOption();
+		if (optie == "Balance") {
+			setupSaldoScreen(bal);
+			while ((MenuButtons.get(1).getInput()) == null)
+			
+				if (((MenuButtons.get(1).getInput()) == "Withdraw")) {
+					withdraw(c, bal);
+				}
+			
+
+		} else {
+			if (optie == "Withdraw") {
+				withdraw(c, bal);
+
+			}
 		}
 
+		delay(1500);
+
+	}
+
+	private void withdraw(Client c, int bal) {
+		setupAmountScreen();
+
+		int amount = getAmount();
+
+		if (bal > amount) {
+			delay(1500);
+			setupReceiptScreen();
+
+			if (getYesNo() == "Yes") {
+				printReceipt();
+			}
+			clearScreen();
+			c.setBalance(bal - amount);
+			as.add(NotificationText);
+			pinScreenNotification("Now dispensing: \u20ac" + Integer.toString(amount));
+			delay(2000);
+		} else {
+			clearScreen();
+			as.add(NotificationText);
+			pinScreenNotification("Insufficient money!");
+			delay(2000);
+		}
 	}
 
 	private void printReceipt() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
