@@ -18,7 +18,7 @@ public class Bank {
 
 	}
 
-//
+	
 	public Client get(String rekeningnummer) {
 		if (accounts.containsKey(rekeningnummer)) {
 			return accounts.get(rekeningnummer);

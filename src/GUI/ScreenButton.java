@@ -32,7 +32,7 @@ public class ScreenButton extends ScreenElement implements InputDevice, java.awt
 	public String getInput() {
 		if (inputAvailable) {
 			inputAvailable = false;
-			System.out.println(button.getLabel());
+			//System.out.println(button.getLabel());
 			return button.getLabel();
 		} else {
 			return null;

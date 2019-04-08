@@ -11,6 +11,7 @@ public class ATM {
 	private Frame f;
 	private String PinCode = "";
 	private String PinCodeSecure = "";
+	private String cardNumber = "";
 	// private int Amount;
 
 	private ATMScreen as;
@@ -25,15 +26,15 @@ public class ATM {
 		this.bank = bank;
 
 		as = new ATMScreen();
-		Frame f = new Frame("My ATM");
+		Frame f = new Frame("ATM - Sascha Vis - 0962873");
 
 		addButtonsToListKeyPad();
 		addButtonsToListAmount();
 		addButtonsToListYesNo();
 		addButtonsToListMenu();
 
-		f.setBounds(200, 200, 400, 350);
-		f.setBackground(Color.BLUE);
+		f.setBounds(200, 200, 600, 400);
+		f.setBackground(Color.DARK_GRAY);
 		f.addWindowListener(new MyWindowAdapter(f));
 		f.add(as);
 		f.setVisible(true);
@@ -66,7 +67,7 @@ public class ATM {
 
 	private void addButtonsToListYesNo() {
 
-		ScreenButton buttonYes = new ScreenButton("Yes", new Point(100, 50));
+		ScreenButton buttonYes = new ScreenButton("Yes", new Point(150, 150));
 		ScreenButton buttonNo = new ScreenButton("No", new Point(50, 150));
 
 		YesNoButtons.add(buttonYes);
@@ -77,9 +78,9 @@ public class ATM {
 	private void addButtonsToListAmount() {
 
 		ScreenButton button1 = new ScreenButton("\u20ac 20", new Point(100, 100));
-		ScreenButton button2 = new ScreenButton("\u20ac 50", new Point(150, 100));
-		ScreenButton button3 = new ScreenButton("\u20ac 100", new Point(200, 100));
-		ScreenButton button4 = new ScreenButton("\u20ac 200", new Point(100, 150));
+		ScreenButton button2 = new ScreenButton("\u20ac 50", new Point(200, 100));
+		ScreenButton button3 = new ScreenButton("\u20ac 100", new Point(100, 150));
+		ScreenButton button4 = new ScreenButton("\u20ac 200", new Point(200, 150));
 		AmountButtons.add(button1);
 		AmountButtons.add(button2);
 		AmountButtons.add(button3);
@@ -217,7 +218,7 @@ public class ATM {
 					}
 				}
 			}
-			System.out.println(PinCode);
+			// System.out.println(PinCode);
 
 		}
 		return PinCode;
@@ -233,7 +234,7 @@ public class ATM {
 		String name = "";
 		cardScreen();
 		while (accountHolder == null) {
-			String cardNumber = "";
+			cardNumber = "";
 
 			if (cardNumber == "" || cardNumber == null)
 				cardNumber = kaartlezer.getInput();
@@ -313,47 +314,60 @@ public class ATM {
 	}
 
 	public void doTransaction(CardReader kaartlezer) {
-
+		boolean blocked = false;
 		Client c = getClient(bank, kaartlezer);
 
 		setupPinscreen();
 
-		for (int i = 0; i < 3; i++) {
-			delay(1000);
-			String PinCode = getPin(this);
-			System.out.println("PinCode: " + PinCode);
-			if (c.checkPin(PinCode)) {
-				System.out.println("Correct PinCode");
-				break;
+		for (int i = 0; i <= 3; i++) {
+			if (i == 3) {
+				blocked = true;
+				delay(1500);
+				clearScreen();
+				System.out.println("\n");
+				return;
 			} else {
-				System.out.println("Incorrect PinCode");
-			}
-		}
+				delay(1000);
+				String PinCode = getPin(this);
 
-		delay(1500);
-
-		setupMenuScreen();
-
-		int bal = c.getBalance(PinCode);
-
-		String optie = getOption();
-		if (optie == "Balance") {
-			setupSaldoScreen(bal);
-			while (true) {
-				if (((MenuButtons.get(1).getInput()) == "Withdraw")) {
-					clearScreen();
-					withdraw(c, bal);
+				if (c.checkPin(PinCode)) {
+					System.out.println("Correct PinCode");
 					break;
+				} else {
+					pinScreenNotification("Incorrect pin " + Integer.toString(3 - i-1) + " tries left!");
+					System.out.println("Incorrect PinCode");
+					delay(1000);
 				}
 			}
+		}
 
-		} else {
-			if (optie == "Withdraw") {
-				withdraw(c, bal);
+		System.out.println("\n");
+		if (!blocked) {
+			delay(1500);
 
+			setupMenuScreen();
+
+			int bal = c.getBalance(PinCode);
+
+			String optie = getOption();
+			if (optie == "Balance") {
+				setupSaldoScreen(bal);
+				while (true) {
+					if (((MenuButtons.get(1).getInput()) == "Withdraw")) {
+						clearScreen();
+						withdraw(c, bal);
+						break;
+					}
+				}
+
+			} else {
+				if (optie == "Withdraw") {
+					withdraw(c, bal);
+
+				}
 			}
 		}
-		//delay(1500);
+		// delay(1500);
 	}
 
 	private void withdraw(Client c, int bal) {
@@ -361,12 +375,12 @@ public class ATM {
 
 		int amount = getAmount();
 
-		if (bal > amount) {
+		if (bal >= amount) {
 			delay(1500);
 			setupReceiptScreen();
 
 			if (getYesNo() == "Yes") {
-				printReceipt();
+				printReceipt(amount, cardNumber);
 			}
 			clearScreen();
 			c.setBalance(bal - amount);
@@ -378,13 +392,17 @@ public class ATM {
 			as.add(NotificationText);
 			pinScreenNotification("Insufficient money!");
 			delay(1000);
-			
+
 		}
-		//clearScreen();
+		// clearScreen();
 	}
 
-	private void printReceipt() {
-		// TODO Auto-generated method stub
+	private void printReceipt(int amount, String key) {
+
+		String PrintedLines = "\n" + "Receipt:\n" + "Amount : \u20ac" + Integer.toString(amount) + "\n"
+				+ "AccountHolder: " + key + "\n";
+		ReceiptPrinter rp = new ReceiptPrinter("rp");
+		rp.giveOutput(PrintedLines);
 
 	}
 }
