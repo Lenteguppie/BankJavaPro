@@ -9,7 +9,7 @@ public class ReceiptPrinter extends HardwareElement implements OutputDevice{
 
 	@Override
 	public void giveOutput(String string) {
-		// TODO Auto-generated method stub
+		// Print the given String
 		System.out.println(string);
 	}
 

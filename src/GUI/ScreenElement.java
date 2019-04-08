@@ -9,11 +9,11 @@ public abstract class ScreenElement extends ATMElement{
 	
 	public ScreenElement(String naam, Point locatie){
 		super(naam);
-		this.pos = locatie;
-		this.name = naam;		
+		this.pos = locatie; // set position of the screenelement
+		this.name = naam;   // set the name of the screen element
 	}
 	
-	Container container = new Container();
+	Container container = new Container(); //create a new container
 	abstract void setContainer(Container container);
 		
 }

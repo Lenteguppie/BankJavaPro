@@ -12,7 +12,7 @@
   </class>  
   <class id="2" language="java" name="GUI.ATMScreen" project="eindopdracht" file="/eindopdracht/src/GUI/ATMScreen.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="116" width="203" x="458" y="213"/>    
+    <position height="-1" width="-1" x="666" y="107"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -39,7 +39,7 @@
   </class>  
   <class id="5" language="java" name="GUI.CardReader" project="eindopdracht" 
     file="/eindopdracht/src/GUI/CardReader.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="116" width="164" x="852" y="626"/>    
+    <position height="-1" width="-1" x="919" y="599"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -48,7 +48,7 @@
   </class>  
   <class id="6" language="java" name="GUI.ScreenButton" project="eindopdracht" 
     file="/eindopdracht/src/GUI/ScreenButton.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="136" width="226" x="320" y="626"/>    
+    <position height="-1" width="-1" x="405" y="788"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -66,7 +66,7 @@
   </interface>  
   <class id="8" language="java" name="GUI.Keypad" project="eindopdracht" file="/eindopdracht/src/GUI/Keypad.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="116" width="135" x="1056" y="626"/>    
+    <position height="-1" width="-1" x="1084" y="720"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -75,7 +75,7 @@
   </class>  
   <interface id="9" language="java" name="GUI.OutputDevice" project="eindopdracht" 
     file="/eindopdracht/src/GUI/OutputDevice.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="96" width="184" x="1034" y="802"/>    
+    <position height="-1" width="-1" x="1165" y="852"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -93,7 +93,7 @@
   </class>  
   <class id="11" language="java" name="GUI.Bank" project="eindopdracht" file="/eindopdracht/src/GUI/Bank.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="96" width="123" x="295" y="409"/>    
+    <position height="-1" width="-1" x="656" y="315"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -102,7 +102,7 @@
   </class>  
   <class id="12" language="java" name="GUI.HardwareElement" project="eindopdracht" 
     file="/eindopdracht/src/GUI/HardwareElement.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="156" width="202" x="1056" y="409"/>    
+    <position height="-1" width="-1" x="1134" y="516"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -111,7 +111,7 @@
   </class>  
   <class id="13" language="java" name="GUI.Program" project="eindopdracht" file="/eindopdracht/src/GUI/Program.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="116" width="152" x="701" y="213"/>    
+    <position height="-1" width="-1" x="852" y="272"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -120,7 +120,7 @@
   </class>  
   <class id="14" language="java" name="GUI.ATMElement" project="eindopdracht" 
     file="/eindopdracht/src/GUI/ATMElement.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1199" y="300"/>    
+    <position height="-1" width="-1" x="1260" y="359"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -129,7 +129,7 @@
   </class>  
   <class id="15" language="java" name="GUI.Client" project="eindopdracht" file="/eindopdracht/src/GUI/Client.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="156" width="123" x="893" y="213"/>    
+    <position height="-1" width="-1" x="1044" y="185"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -141,57 +141,61 @@
     <end type="TARGET" refId="7"/>  
   </realization>  
   <generalization id="17">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="3"/>  
-  </generalization>  
-  <generalization id="18">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="14"/>  
-  </generalization>  
-  <generalization id="19">    
     <end type="SOURCE" refId="10"/>    
     <end type="TARGET" refId="12"/>  
   </generalization>  
-  <generalization id="20">    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="14"/>  
-  </generalization>  
-  <generalization id="21">    
-    <end type="SOURCE" refId="6"/>    
+  <generalization id="18">    
+    <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="3"/>  
   </generalization>  
-  <generalization id="22">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="12"/>  
-  </generalization>  
-  <realization id="23">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="7"/>  
-  </realization>  
-  <association id="24">    
+  <association id="19">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="25" name="bank"/>      
-      <multiplicity id="26" minimum="0" maximum="1"/>    
+      <attribute id="20" name="bank">        
+        <position height="0" width="0" x="300" y="-142"/>      
+      </attribute>      
+      <multiplicity id="21" minimum="0" maximum="1">        
+        <position height="0" width="0" x="300" y="-142"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="11" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="27">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="7"/>  
+  <generalization id="22">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <generalization id="23">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="14"/>  
+  </generalization>  
+  <realization id="24">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="9"/>  
   </realization>  
+  <generalization id="25">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="12"/>  
+  </generalization>  
+  <generalization id="26">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
+  <generalization id="27">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="12"/>  
+  </generalization>  
   <realization id="28">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="9"/>  
   </realization>  
   <realization id="29">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="9"/>  
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="7"/>  
   </realization>  
-  <generalization id="30">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="12"/>  
-  </generalization>  
+  <realization id="30">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="7"/>  
+  </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

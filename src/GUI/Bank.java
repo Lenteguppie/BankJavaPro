@@ -6,6 +6,8 @@ public class Bank {
 	private Map<String, Client> accounts;
 
 	public Bank() {
+		
+		/* Put a couple of clients in the Hash-Map so we can simulate a transaction*/
 		this.accounts = new HashMap<String, Client>();
 		Client client1 = new Client("Piet", "0000", 100);
 		this.accounts.put("NL01BANK0123456789", client1);
@@ -18,7 +20,7 @@ public class Bank {
 
 	}
 
-	
+	/* Gets the client according which accountNumber the user enters */
 	public Client get(String rekeningnummer) {
 		if (accounts.containsKey(rekeningnummer)) {
 			return accounts.get(rekeningnummer);

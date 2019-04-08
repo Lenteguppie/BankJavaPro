@@ -18,12 +18,13 @@ public class DisplayText extends ScreenElement implements OutputDevice{
 		label.setBounds(pos.x, pos.y, 400, 35);
 	}
 
+	
 	@Override
 	void setContainer(Container container) {
 		container.add(label);
-		
 	}
 
+	// set the text of the label
 	@Override
 	public void giveOutput(String string) {
 		// TODO Auto-generated method stub

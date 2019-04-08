@@ -12,15 +12,14 @@ public class CardReader extends HardwareElement implements InputDevice {
 
 	public CardReader(String naam) {
 		super(naam);
-		 br = new BufferedReader(new InputStreamReader(System.in));
+		 br = new BufferedReader(new InputStreamReader(System.in)); //setup to get input from console
 		// TODO Auto-generated constructor stub
 	}
 	
 	public String getInput() {
-		String ID = "";
 		System.out.println("To simulate inserting card, enter card number");
 		try{
-	        String cardNr = br.readLine();
+	        String cardNr = br.readLine(); //read line and return it
 	        return cardNr;
 	        }
 	        catch(IOException e){

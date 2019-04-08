@@ -7,16 +7,19 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class ATM {
+
+	/* Define the elements to schow the screen! */
 	private Bank bank;
 	private Frame f;
+	private ATMScreen as; // create a new screen so we can paint on it :D
+	private DisplayText NotificationText;
+
+	/* Global variables */
 	private String PinCode = "";
 	private String PinCodeSecure = "";
 	private String cardNumber = "";
-	// private int Amount;
 
-	private ATMScreen as;
-	private DisplayText NotificationText;
-
+	/* Define the arraylists where the buttons are staged! */
 	private ArrayList<ScreenButton> KeyPadButtons = new ArrayList<ScreenButton>();
 	private ArrayList<ScreenButton> AmountButtons = new ArrayList<ScreenButton>();
 	private ArrayList<ScreenButton> YesNoButtons = new ArrayList<ScreenButton>();
@@ -25,24 +28,29 @@ public class ATM {
 	public ATM(Bank bank) {
 		this.bank = bank;
 
-		as = new ATMScreen();
-		Frame f = new Frame("ATM - Sascha Vis - 0962873");
+		this.as = new ATMScreen();
+		this.f = new Frame("ATM - Sascha Vis - 0962873");
 
+		/*
+		 * When a new ATM is created add the different kind of buttons to the correct
+		 * ArrayList!
+		 */
 		addButtonsToListKeyPad();
 		addButtonsToListAmount();
 		addButtonsToListYesNo();
 		addButtonsToListMenu();
 
+		/* Set the propperties for the screen. */
 		f.setBounds(200, 200, 600, 400);
 		f.setBackground(Color.DARK_GRAY);
 		f.addWindowListener(new MyWindowAdapter(f));
 		f.add(as);
 		f.setVisible(true);
-		NotificationText = new DisplayText("NotificationText", new Point(100, 25));
+		NotificationText = new DisplayText("NotificationText", new Point(100, 25)); // Create the new label where the
+																					// text will be showed
 	}
 
 	private void addButtonsToListKeyPad() {
-
 		ScreenButton button1 = new ScreenButton("1", new Point(100, 100));
 		ScreenButton button2 = new ScreenButton("2", new Point(150, 100));
 		ScreenButton button3 = new ScreenButton("3", new Point(200, 100));
@@ -65,6 +73,7 @@ public class ATM {
 		KeyPadButtons.add(button0);
 	}
 
+	/* Methods to add the buttons to their ArrayLists */
 	private void addButtonsToListYesNo() {
 
 		ScreenButton buttonYes = new ScreenButton("Yes", new Point(150, 150));
@@ -98,43 +107,12 @@ public class ATM {
 
 	}
 
-	private int getAmount() {
-		int amount = 0;
-		while (amount <= 0) {
-			Thread.yield();
-			for (int i = 0; i < AmountButtons.size(); i++) {
-				String input = AmountButtons.get(i).getInput();
-
-				if (input != null) {
-					switch (input) {
-					case "\u20ac 20":
-						amount = 20;
-						break;
-					case "\u20ac 50":
-						amount = 50;
-						break;
-					case "\u20ac 100":
-						amount = 100;
-						break;
-					case "\u20ac 200":
-						amount = 200;
-						break;
-					default:
-
-						break;
-					}
-
-				}
-			}
-		}
-		System.out.println("Amount: " + amount);
-		return amount;
-	}
-
+	/* Method to clear the current screen */
 	private void clearScreen() {
 		as.Clear();
 	}
 
+	/* Methods to setup the different screens */
 	private void cardScreen() {
 		as.add(NotificationText);
 		pinScreenNotification("Enter your Card!");
@@ -192,42 +170,18 @@ public class ATM {
 		as.add((MenuButtons.get(1)));
 	}
 
+	/* Method to clear the PinCodezzz */
 	private void clearPinCode() {
 		PinCode = "";
 		PinCodeSecure = "";
 	}
 
-	private String KeypadInput() {
-		while (PinCode.length() < 4) {
-			Thread.yield();
-			for (int i = 0; i < KeyPadButtons.size(); i++) {
-				String input = KeyPadButtons.get(i).getInput();
-				if (PinCode.length() == 0) {
-					if (input != null) {
-						PinCode = input;
-						PinCodeSecure += "X";
-						pinScreenNotification(PinCodeSecure);
-						input = "";
-					}
-				} else {
-					if (input != null) {
-						PinCode += input;
-						PinCodeSecure += "X";
-						pinScreenNotification(PinCodeSecure);
-						input = "";
-					}
-				}
-			}
-			// System.out.println(PinCode);
-
-		}
-		return PinCode;
-	}
-
+	/* Method to update the message label on the screen */
 	private void pinScreenNotification(String tekst) {
 		NotificationText.giveOutput(tekst);
 	}
 
+    /* Method to get the card input and the Client that matches the card number */
 	private Client getClient(Bank bank, CardReader kaartlezer) {
 		// String cardNumber = "";
 		Client accountHolder = null;
@@ -258,6 +212,7 @@ public class ATM {
 
 	}
 
+	/* Method to pass the PinCode to other methods*/
 	private String getPin(ATM atm) {
 
 		pinScreenNotification("Enter your Pin!");
@@ -268,6 +223,7 @@ public class ATM {
 
 	}
 
+	/* Custom method to let the program wait (sleep) for a given time of milliseconds */
 	private void delay(long l) {
 		try {
 			Thread.sleep(l);
@@ -275,6 +231,34 @@ public class ATM {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	/* Methods to get the button inputs */
+	private String KeypadInput() {
+		while (PinCode.length() < 4) {
+			Thread.yield();
+			for (int i = 0; i < KeyPadButtons.size(); i++) {
+				String input = KeyPadButtons.get(i).getInput();
+				if (PinCode.length() == 0) {
+					if (input != null) {
+						PinCode = input;
+						PinCodeSecure += "X";
+						pinScreenNotification(PinCodeSecure);
+						input = "";
+					}
+				} else {
+					if (input != null) {
+						PinCode += input;
+						PinCodeSecure += "X";
+						pinScreenNotification(PinCodeSecure);
+						input = "";
+					}
+				}
+			}
+			// System.out.println(PinCode);
+
+		}
+		return PinCode;
 	}
 
 	private String getYesNo() {
@@ -313,6 +297,41 @@ public class ATM {
 		return option;
 	}
 
+	
+	private int getAmount() {
+		int amount = 0;
+		while (amount <= 0) {
+			Thread.yield();
+			for (int i = 0; i < AmountButtons.size(); i++) {
+				String input = AmountButtons.get(i).getInput();
+
+				if (input != null) {
+					switch (input) {
+					case "\u20ac 20":
+						amount = 20;
+						break;
+					case "\u20ac 50":
+						amount = 50;
+						break;
+					case "\u20ac 100":
+						amount = 100;
+						break;
+					case "\u20ac 200":
+						amount = 200;
+						break;
+					default:
+
+						break;
+					}
+
+				}
+			}
+		}
+		System.out.println("Amount: " + amount);
+		return amount;
+	}
+
+	/* Method that controlls the transaction */
 	public void doTransaction(CardReader kaartlezer) {
 		boolean blocked = false;
 		Client c = getClient(bank, kaartlezer);
@@ -334,7 +353,7 @@ public class ATM {
 					System.out.println("Correct PinCode");
 					break;
 				} else {
-					pinScreenNotification("Incorrect pin " + Integer.toString(3 - i-1) + " tries left!");
+					pinScreenNotification("Incorrect pin " + Integer.toString(3 - i - 1) + " tries left!");
 					System.out.println("Incorrect PinCode");
 					delay(1000);
 				}
@@ -370,6 +389,8 @@ public class ATM {
 		// delay(1500);
 	}
 
+	
+	/* Withdraw method */
 	private void withdraw(Client c, int bal) {
 		setupAmountScreen();
 
@@ -397,6 +418,8 @@ public class ATM {
 		// clearScreen();
 	}
 
+	
+	/* Print receipt method */
 	private void printReceipt(int amount, String key) {
 
 		String PrintedLines = "\n" + "Receipt:\n" + "Amount : \u20ac" + Integer.toString(amount) + "\n"
